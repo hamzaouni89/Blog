@@ -5,14 +5,19 @@ var User = require('../model/users')
 var router = express.Router()
 
 
+
 const JWT_SIGN_SECRET = 'KJN4511qkqhxq5585x5s85f8f2x8ww8w55x8s52q5w2q2'
 
 
 router.post('/register', function (req, res) {
-    var username = req.body.username
+    
+    var nom = req.body.nom
+    var prenom = req.body.prenom
     var password = req.body.password
     var email = req.body.email
-    if (username == null || password == null || email == null) {
+    var role = req.body.role
+    
+    if (nom == null || password == null || email == null || prenom == null || role == null ) {
         res.status(400).send({
             'error': 'missing  parametres'
         });
@@ -27,8 +32,11 @@ router.post('/register', function (req, res) {
             if (!userfound) {
                 bcrypt.hash(password, 10, function (err, bcryptedPassword) {
                     var newUser = User.create({
+                        
                         email: email,
-                        username: username,
+                        nom: nom,
+                        prenom: prenom,
+                        role: role,
                         password: bcryptedPassword
                     })
                         .then(function (newUser) {
@@ -80,8 +88,8 @@ router.post('/login', function (req, res) {
                             expiresIn: '1h'
                         });
                     res.status(200).send({
-                        Message: 'authentification valide',
-                        token: token
+                        Message : 'authentification valide',
+                        token : token
                     })
 
                 } else {
