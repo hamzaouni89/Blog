@@ -2,7 +2,15 @@ var mongoose = require('mongoose')
 var articleSchema = new mongoose.Schema({
   titre: String,
   contenue: String,
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } 
+  ArticleImage: String,
+  type: {
+    type: String,
+    enum: ['Sport', 'News', 'Technology', 'Bisness', 'Fashion', 'Food', 'Culture'],
+    default: 'News'
+  }
 
-}) 
-module.exports=mongoose.model('Article',articleSchema)
+
+  // owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' } 
+
+})
+module.exports = mongoose.model('Article', articleSchema)
