@@ -1,12 +1,18 @@
 var mongoose = require('mongoose')
 var userSchema = new mongoose.Schema({
+  
   nom: String,
   prenom: String,
-     email: {
+  email: {
     type:String,
     unique: true
-}, 
-role : String,
+  }, 
+  role: {
+    type: String,
+    enum: ['Client', 'Jornaliste'],
+    default: 'Client'
+  },
+
 password : String , 
 
 }) 

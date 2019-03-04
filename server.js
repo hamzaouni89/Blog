@@ -1,11 +1,14 @@
 var express = require('express')
+var passport = require('passport');
 var app = express()
 var db = require('./database/db')
 var users = require('./api/ApiUser')
-var articles = require('./api/ApiArticle')
+//var articles = require('./api/ApiArticle')
 //var commentaire = require('./api/ApiCom')
+
 var cors = require('cors');
 var bodyParser = require('body-parser')
+
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
