@@ -62,7 +62,7 @@ router.get('/getArticle', function (req, res, next) {
 
 router.get('/getArticles/:id', function (req, res, next) {
     var id = req.params.id
-    Todo.findById(id).exec(function (err, article) {
+    Article.findById(id).exec(function (err, article) {
         if (err) {
             res.send(err)
         }
@@ -76,7 +76,7 @@ router.get('/getArticles/:id', function (req, res, next) {
 router.get('/deletearticle/:id', function (req, res, next) {
     var id = req.params.id
 
-    Todo.findByIdAndRemove(id).exec(function (err, article) {
+    Article.findByIdAndRemove(id).exec(function (err, article) {
         if (err) {
             res.send(err)
         }
@@ -90,8 +90,9 @@ router.post('/updatearticle/:id', function (req, res, next) {
     var id = req.params.id
     var titre = req.body.titre
     var contenue = req.body.contenue
-
-    Todo.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue } }).exec(function (err, article) {
+    // var ArticleImage = req.file.path
+    var type = req.body.type
+    Article.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue, type: type } }).exec(function (err, article) {
         if (err) {
             res.send(err)
         }
@@ -100,5 +101,4 @@ router.post('/updatearticle/:id', function (req, res, next) {
         }
     })
 })
-
 module.exports = router;
