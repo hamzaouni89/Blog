@@ -20,6 +20,8 @@
     "mongoose": "^5.4.16",
     "multer": "^1.4.1",
     "passport": "^0.4.0",
+    "passport-strategy": "^1.0.0",
+    "pause": "^0.1.0",
     "router-express": "^1.5.2"
   }
 }

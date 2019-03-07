@@ -11,20 +11,20 @@
 
       <!-- Blog Post -->
       <div *ngFor="let article of articles" class="row">
-      <div class="card mb-4">
-        <img class="card-img-top" src="{{article.ArticleImage}}" alt="Card image cap">
-        <div class="card-body">
-          <h2 class="card-title">{{article.titre}} </h2>
-          <p class="card-text">{{article.contenue}}</p>
-          <a href="#" class="btn btn-primary">Read More &rarr;</a>
-        </div>
-        <div class="card-footer text-muted">
-          Posted on January 1, 2017 by
-          <a href="#">Start Bootstrap</a>
+        <div class="card mb-4">
+          <img class=" ImageTaille" src="http://localhost:3000/article/getImage/{{article.ArticleImage}}" alt=""
+            alt="Card image cap">
+          <div class="card-body">
+            <h2 class="card-title">{{article.titre}} </h2>
+            <p class="card-text">{{article.contenue}}</p>
+            <a href="#" class="btn btn-primary">Read More &rarr;</a>
+            <button class="btn btn-secondary" type="button" onclick="UpdateArticle(article)">Modifier</button>
+            <button class="btn btn-secondary" type="button">Supprimer</button>
+
+          </div>
         </div>
       </div>
-    </div>
-      
+
 
       <!-- Pagination -->
       <ul class="pagination justify-content-center mb-4">
@@ -73,7 +73,7 @@
               </ul>
             </div>
             <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
+              <ul class="list-unstyled mb-0">
                 <li>
                   <a href="#">Technology</a>
                 </li>
@@ -83,15 +83,15 @@
                 <li>
                   <a href="#">Food</a>
                 </li>
-                </ul>
+              </ul>
             </div>
             <div class="col-lg-6">
-                <ul class="list-unstyled mb-0">
+              <ul class="list-unstyled mb-0">
                 <li>
                   <a href="#">Culture</a>
                 </li>
               </ul>
-            </div>            
+            </div>
           </div>
         </div>
       </div>

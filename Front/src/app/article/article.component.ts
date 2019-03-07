@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { ArticleService } from '../service/article.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as jwt_decode from "jwt-decode";
+import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
+import { Http, Response } from '@angular/http';
+
+//const URL = 'http://localhost:8000/article/upload';
 
 @Component({
   selector: 'app-article',
@@ -9,11 +13,18 @@ import * as jwt_decode from "jwt-decode";
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
+  public uploader: FileUploader = new FileUploader({});
+  selectedImage: File;
+  image: any;
+  public imagePath;
+  imgURL: any;
 
   articles;
   decoded = jwt_decode(localStorage.getItem('token'));
   formArticle: FormGroup;
   formArticleModifer: FormGroup;
+  http: Http;
+  el: ElementRef;
   constructor(public articleService: ArticleService) {
     this.formArticle = new FormGroup({
       titre: new FormControl(),
@@ -34,15 +45,30 @@ export class ArticleComponent implements OnInit {
 
   ngOnInit() {
     this.getArticles();
+
   }
+  /*  upload() {
+     let inputEl: HTMLInputElement = this.el.nativeElement.querySelector('#photo');
+     let fileCount: number = inputEl.files.length;
+     let formData = new FormData();
+     if (fileCount > 0) {
+       formData.append('photo', inputEl.files.item(0));
+       this.articleService.getImage(formData).subscribe(res => console.log(res));
+ 
+     }
+   } */
   createArticle() {
     console.log(this.formArticle.value)
     this.formArticle.value.owner = this.decoded._id;
     console.log(this.formArticle.value.owner, this.decoded._id);
-
     this.articleService.createArticle(this.formArticle.value).subscribe((res) => {
-      this.getArticles()
+      this.getArticles();
     });
+  }
+  getImage(image) {
+    this.articleService.getImage(image).subscribe(() => {
+      return this.getArticles();
+    })
   }
 
   getArticles() {
