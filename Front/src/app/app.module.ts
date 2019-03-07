@@ -10,10 +10,12 @@ import { FooterComponent } from './footer/footer.component';
 import { ArticleComponent } from './article/article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FileSelectDirective,
     LoginComponent,
     RegisterComponent,
     NavbarComponent,

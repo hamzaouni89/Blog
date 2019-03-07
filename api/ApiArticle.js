@@ -11,33 +11,45 @@ const storage = multer.diskStorage({
     }
 
 });
-
-const fileFilter = (req, file, cb) => {
+/* const fileFilter = (req, file, cb) => {
     // reject a file
     if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
         cb(null, true);
     } else {
         cb(null, false);
     }
-};
+}; */
 const upload = multer({
     storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    },
-    fileFilter: fileFilter
+
+    //  fileFilter: fileFilter
 });
 
 const Article = require('../model/articles')
-
+// const singleUpload = upload.single('newImage');
 // var authenticate = require('./auth').authenticate;
-
+router.post('/upload', function (req, res, next) {
+    // var imagePath = '';
+    upload(req, res, function (err) {
+        if (err) {
+            return res.status(422).send({ errors: [{ message: 'File Upload Error' }] });
+        } else {
+            imageName = req.file.filename;
+            console.log(req.file.path);
+            imagePath = req.file.path;
+            return res.send({ imageName });
+        }
+    })
+})
+router.get('/getImage/:name', function (req, res, next) {
+    res.sendFile(('E:\\FivePoint\\MiniProjet2\\uploads\\' + req.params.name));
+})
 router.post('/addArticle', upload.single('ArticleImage'), function (req, res, next) {
     console.log(req.file);
     var article = new Article({
         titre: req.body.titre,
         contenue: req.body.contenue,
-        ArticleImage: req.file.path,
+        ArticleImage: req.file.filename,
         type: req.body.type
     });
     console.log(req.body)
