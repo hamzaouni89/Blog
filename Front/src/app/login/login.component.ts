@@ -25,11 +25,10 @@ export class LoginComponent implements OnInit {
   login(user) {
 
     return this.userService.loginUser(user).subscribe((res:any) => {
-      console.log(user)
-      console.log(res)
+      
       if (res.Message === "authentification valide") {
         localStorage.setItem('token', res.token);
-        this.router.navigate(['todos']);
+        this.router.navigate(['/']);
         console.log("user valide");
       }
       else {
@@ -43,7 +42,7 @@ export class LoginComponent implements OnInit {
   logout() {
 
     window.localStorage.removeItem('connected');
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/login');
   }
 
 }

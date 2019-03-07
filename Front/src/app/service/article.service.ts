@@ -13,7 +13,7 @@ export class ArticleService {
 
   getArticles() {
     let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get('http://localhost:3000/article/getArticles', { headers: header })
+    return this.http.get('http://localhost:3000/article/getArticle', { headers: header })
       .map(res => res);
   }
 

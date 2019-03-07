@@ -1,4 +1,7 @@
-var jwt = require('jsonwebtoken')
+
+
+
+ var jwt = require('jsonwebtoken')
 
 module.exports.authentification = function (req, res, next) {
     try {
@@ -44,4 +47,4 @@ module.exports.authenClient = function (req, res, next) {
             message: "Auth failed"
         })
     }
-}
+} 

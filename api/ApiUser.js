@@ -2,6 +2,7 @@ var express = require('express')
 var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var User = require('../model/users')
+
 var router = express.Router()
 
 
@@ -10,44 +11,27 @@ const JWT_SIGN_SECRET = 'KJN4511qkqhxq5585x5s85f8f2x8ww8w55x8s52q5w2q2'
 
 
 router.post('/register', function (req, res) {
-    
-    var nom = req.body.nom
-    var prenom = req.body.prenom
-    var password = req.body.password
-    var email = req.body.email
-    var role = req.body.role
-    
-    if (nom == null || password == null || email == null || prenom == null || role == null ) {
-        res.status(400).send({
-            'error': 'missing  parametres'
-        });
-    }
     User.findOne({
-        attributes: ['email'],
-        where: {
-            email: email
-        }
-    })
+            email: req.body.email
+        })
         .then(function (userfound) {
             if (!userfound) {
-                bcrypt.hash(password, 10, function (err, bcryptedPassword) {
-                    var newUser = User.create({
-                        
-                        email: email,
-                        nom: nom,
-                        prenom: prenom,
-                        role: role,
+                bcrypt.hash(req.body.password, 10, function (err, bcryptedPassword) {
+                    var newUser = new User({
+                        email: req.body.email,
+                        nom: req.body.lastname,
+                        prenom: req.body.firstname,
+                        role: req.body.role,
                         password: bcryptedPassword
-                    })
-                        .then(function (newUser) {
+                    });
+                    newUser.save().then(function (newUser) {
                             res.status(201).send({
                                 '_id': newUser._id
                             })
                         })
                         .catch(function (err) {
-                            res.status(500).send({
-                                'error': 'cannot add user'
-                            })
+                            res.status(500).send(err)
+
                         })
                 })
 
@@ -64,7 +48,10 @@ router.post('/register', function (req, res) {
             })
         });
 })
-router.post('/login', function (req, res) {
+
+
+
+ router.post('/login', function (req, res) {
 
 
     var password = req.body.password
@@ -107,6 +94,13 @@ router.post('/login', function (req, res) {
 
     })
 
-});
+}); 
+
+router.get('/logout', function (req, res) {
+    req.logOut()
+    req.session.destroy()
+
+})
+
 
 module.exports = router;

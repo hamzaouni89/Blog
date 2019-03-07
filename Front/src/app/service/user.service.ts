@@ -15,21 +15,27 @@ export class UserService {
     constructor(private http: HttpClient) { }
 
     getUsers() {
-        return this.http.get('http://localhost:3000/users/getUsers')
+        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get('http://localhost:3000/users/getUsers', { headers: header })
             .map(res => res);
     }
 
     createUser(user) {
-        return this.http.post('http://localhost:3000/users/register', user)
+        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.post('http://localhost:3000/users/register', user , { headers: header })
         .map(res => res);
     }
+ 
+
     loginUser(user) {
-        return this.http.post('http://localhost:3000/users/login', user)
+        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.post('http://localhost:3000/users/login', user , { headers: header })
         .map(res => res);
     }
 
 
     deleteUser(user) {
-        return this.http.get('http://localhost:3000/users/deleteUser/' + user.id);
+        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get('http://localhost:3000/users/deleteUser/' + user.id, { headers: header });
     }
 }
