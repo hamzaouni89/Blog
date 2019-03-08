@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router();
-var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
+var multer = require('multer');
+var authenJornaliste = require('./auth').authenJornaliste;
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -11,45 +11,24 @@ const storage = multer.diskStorage({
     }
 
 });
-/* const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}; */
+
 const upload = multer({
     storage: storage,
-
-    //  fileFilter: fileFilter
 });
 
 const Article = require('../model/articles')
-// const singleUpload = upload.single('newImage');
-// var authenticate = require('./auth').authenticate;
-router.post('/upload', function (req, res, next) {
-    // var imagePath = '';
-    upload(req, res, function (err) {
-        if (err) {
-            return res.status(422).send({ errors: [{ message: 'File Upload Error' }] });
-        } else {
-            imageName = req.file.filename;
-            console.log(req.file.path);
-            imagePath = req.file.path;
-            return res.send({ imageName });
-        }
-    })
+
+router.post('/upload', upload.single("ArticleImage"), function (req, res, next) {
 })
 router.get('/getImage/:name', function (req, res, next) {
-    res.sendFile(('E:\\FivePoint\\MiniProjet2\\uploads\\' + req.params.name));
+    res.sendFile('E:\\FivePoint\\MiniProjet2\\uploads\\' + req.params.name);
 })
-router.post('/addArticle', upload.single('ArticleImage'), function (req, res, next) {
-    console.log(req.file);
+router.post('/addArticle', authenJornaliste, function (req, res, next) {
+    console.log(req.body);
     var article = new Article({
         titre: req.body.titre,
         contenue: req.body.contenue,
-        ArticleImage: req.file.filename,
+        ArticleImage: req.body.ArticleImage,
         type: req.body.type
     });
     console.log(req.body)
@@ -72,7 +51,7 @@ router.get('/getArticle', function (req, res, next) {
     })
 })
 
-router.get('/getArticles/:id', function (req, res, next) {
+router.get('/getArticles/:idUser', authenJornaliste, function (req, res, next) {
     var id = req.params.id
     Article.findById(id).exec(function (err, article) {
         if (err) {
@@ -85,7 +64,7 @@ router.get('/getArticles/:id', function (req, res, next) {
 })
 
 
-router.get('/deletearticle/:id', function (req, res, next) {
+router.get('/deletearticle/:id', authenJornaliste, function (req, res, next) {
     var id = req.params.id
 
     Article.findByIdAndRemove(id).exec(function (err, article) {
@@ -98,7 +77,7 @@ router.get('/deletearticle/:id', function (req, res, next) {
     })
 })
 
-router.post('/updatearticle/:id', function (req, res, next) {
+router.post('/updatearticle/:id', authenJornaliste, function (req, res, next) {
     var id = req.params.id
     var titre = req.body.titre
     var contenue = req.body.contenue

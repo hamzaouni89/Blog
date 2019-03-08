@@ -20,16 +20,20 @@ export class LoginComponent implements OnInit {
     });
   }
   ngOnInit() {
+    console.log(localStorage.getItem('token'));
+
   }
 
   login(user) {
 
-    return this.userService.loginUser(user).subscribe((res:any) => {
-      
+    return this.userService.loginUser(user).subscribe((res: any) => {
+
       if (res.Message === "authentification valide") {
         localStorage.setItem('token', res.token);
+
         this.router.navigate(['/']);
-        console.log("user valide");
+
+        location.reload();
       }
       else {
         console.log("user invalide");
@@ -37,13 +41,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  
 
-  logout() {
 
-    window.localStorage.removeItem('connected');
-    this.router.navigateByUrl('/login');
-  }
+
 
 }
 

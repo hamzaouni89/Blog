@@ -17,12 +17,12 @@
           <a class="nav-link" routerLink="article">Articles</a>
 
         </li>
-        <li class="nav-item"><a class="nav-link" routerLink="profile"> Profile</a></li>
-        <li class="nav-item"> <a class="nav-link" routerLink="logout"> Lagout</a></li>
-        <li class="nav-item"> <a class="nav-link" routerLink="register"> Sign Up</a></li>
+        <li *ngIf="token" class="nav-item"><a class="nav-link" routerLink="profile"> Profile</a></li>
+        <li *ngIf="token" class="nav-item"> <a (click)="logout()" class="nav-link"> Lagout</a></li>
+        <li *ngIf="!token" class="nav-item"> <a class="nav-link" routerLink="register"> Sign Up</a></li>
 
 
-        <li class="nav-item"><a class="nav-link" routerLink="login"> Login</a></li>
+        <li *ngIf="!token" class="nav-item"><a class="nav-link" routerLink="login"> Login</a></li>
 
 
       </ul>

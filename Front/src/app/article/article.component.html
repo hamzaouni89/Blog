@@ -12,15 +12,66 @@
       <!-- Blog Post -->
       <div *ngFor="let article of articles" class="row">
         <div class="card mb-4">
-          <img class=" ImageTaille" src="http://localhost:3000/article/getImage/{{article.ArticleImage}}" alt=""
-            alt="Card image cap">
+          <img class=" ImageTaille" src="http://localhost:3000/article/getImage/{{article.ArticleImage}}" alt="" alt="Card image cap">
           <div class="card-body">
-            <h2 class="card-title">{{article.titre}} </h2>
+            <h2 class="card-title">{{article.titre}}  | Type : {{article.type}}</h2>
             <p class="card-text">{{article.contenue}}</p>
-            <a href="#" class="btn btn-primary">Read More &rarr;</a>
-            <button class="btn btn-secondary" type="button" onclick="UpdateArticle(article)">Modifier</button>
-            <button class="btn btn-secondary" type="button">Supprimer</button>
+            <div class="row">
+              <div class="col-md-3">
+                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+              </div>
+              <div class="offset-5 col-md-4">
+                <a class="btn btn-info" data-toggle="modal" data-target="#article" (click)="update(article)">Modifier</a>
+                <div class="modal fade" id="article" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                  aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Modifier Article<Article></Article>
+                        </h5>
 
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form class="form-horizontal" role="form" [formGroup]="formArticleModifer">
+                          <!-- Text input-->
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" for="textinput">Titre</label>
+                            <div class="col-sm-10">
+                              <input type="text" formControlName="titre" placeholder="Titre Article" class="form-control">
+                            </div>
+                          </div>
+
+                          <!-- Text input-->
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" for="textinput">Contenue</label>
+                            <div class="col-sm-10">
+                              <input type="text" formControlName="contenue" placeholder="Contenue Article" class="form-control">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-sm-3 control-label" for="textinput">Type</label>
+                            <div class="col-sm-10">
+                              <input type="text" formControlName="type" placeholder="Type Article" class="form-control">
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <div class="pull-right">
+                          <button type="submit" class="btn btn-default">Cancel</button>
+                          <button type="submit" class="btn btn-danger " (click)="updateArticle(article)">Modifier</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <a class="btn btn-danger " (click)="deleteArticle(article)">Delete</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>

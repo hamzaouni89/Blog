@@ -2,7 +2,6 @@ import { Component, OnInit, ElementRef } from '@angular/core';
 import { ArticleService } from '../service/article.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import * as jwt_decode from "jwt-decode";
-import { FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { Http, Response } from '@angular/http';
 
 //const URL = 'http://localhost:8000/article/upload';
@@ -13,7 +12,7 @@ import { Http, Response } from '@angular/http';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
-  public uploader: FileUploader = new FileUploader({});
+  //public uploader: FileUploader = new FileUploader({});
   selectedImage: File;
   image: any;
   public imagePath;
@@ -91,15 +90,18 @@ export class ArticleComponent implements OnInit {
     console.log(article)
     this.formArticleModifer = new FormGroup({
       titre: new FormControl(article.titre),
-      description: new FormControl(article.description),
-      type: new FormControl(article.type)
+      contenue: new FormControl(article.contenue),
+      type: new FormControl(article.type),
+      ArticleImage: new FormControl(article.ArticleImage),
     });
   }
 
   updateArticle(article) {
 
     article.titre = this.formArticleModifer.controls.titre.value;
-    article.description = this.formArticleModifer.controls.description.value;
+    article.contenue = this.formArticleModifer.controls.contenue.value;
+    article.type = this.formArticleModifer.controls.type.value;
+    article.ArticleImage = this.formArticleModifer.controls.ArticleImage.value;
     console.log(article)
     return this.articleService.updateArticle(article).subscribe((res) => {
       article = res;

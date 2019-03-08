@@ -12,8 +12,8 @@ const JWT_SIGN_SECRET = 'KJN4511qkqhxq5585x5s85f8f2x8ww8w55x8s52q5w2q2'
 
 router.post('/register', function (req, res) {
     User.findOne({
-            email: req.body.email
-        })
+        email: req.body.email
+    })
         .then(function (userfound) {
             if (!userfound) {
                 bcrypt.hash(req.body.password, 10, function (err, bcryptedPassword) {
@@ -25,10 +25,10 @@ router.post('/register', function (req, res) {
                         password: bcryptedPassword
                     });
                     newUser.save().then(function (newUser) {
-                            res.status(201).send({
-                                '_id': newUser._id
-                            })
+                        res.status(201).send({
+                            '_id': newUser._id
                         })
+                    })
                         .catch(function (err) {
                             res.status(500).send(err)
 
@@ -51,7 +51,7 @@ router.post('/register', function (req, res) {
 
 
 
- router.post('/login', function (req, res) {
+router.post('/login', function (req, res) {
 
 
     var password = req.body.password
@@ -70,13 +70,14 @@ router.post('/register', function (req, res) {
                         '_id': userfound._id,
                         'email': userfound.email,
                         'username': userfound.username,
+                        'role': userfound.role
                     },
                         JWT_SIGN_SECRET, {
                             expiresIn: '1h'
                         });
                     res.status(200).send({
-                        Message : 'authentification valide',
-                        token : token
+                        Message: 'authentification valide',
+                        token: token
                     })
 
                 } else {
@@ -94,7 +95,7 @@ router.post('/register', function (req, res) {
 
     })
 
-}); 
+});
 
 router.get('/logout', function (req, res) {
     req.logOut()
@@ -102,5 +103,44 @@ router.get('/logout', function (req, res) {
 
 })
 
+router.post('/addArticle/:id', function (req, res, next) {
 
+    Article.updateOne({
+        "_id": req.params.id
+    }, {
+            $set: {
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                email: req.body.email,
+                password: req.body.password,
+                role: req.body.role,
+            }
+        }).exec(function (err, user) {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send(user)
+            }
+        })
+})
+
+
+router.get('/addArticles/:idUser/:idArticle', function (req, res, next) {
+
+
+
+    User.updateOne({
+        "_id": req.params.idUser
+    }, {
+            $push: {
+                articless: req.params.idArticle
+            }
+        }).exec(function (err, user) {
+            if (err) {
+                res.send(err)
+            } else {
+                res.send(user)
+            }
+        })
+})
 module.exports = router;

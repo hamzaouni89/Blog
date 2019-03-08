@@ -394,14 +394,14 @@
           </div>
           <div class="form-group">
             <label for="exampleFormControlFile1"> choisir image</label>
-            <input type="file" class="form-control-file" formControlName="selectImage">
+            <input type="file" class="form-control-file" (change)="handleFileInput($event.target.files)">
           </div>
           <div class="form-group">
             <label for="exampleFormControlTextarea1">Description</label>
             <textarea class="form-control" formControlName="contenue" rows="5"></textarea>
           </div>
         </div>
-        <button type="submit" (click)="createArticle()" class="btn btn-success">Ajouter</button>
+        <button type="button" (click)="createArticle()" class="btn btn-success">Ajouter</button>
 
       </form>
 

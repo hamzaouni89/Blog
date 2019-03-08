@@ -15,10 +15,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../app/service/user.service';
 import { ArticleService } from '../app/service/article.service'
 import { ProfilComponent } from './profil/profil.component';
+
 @NgModule({
   declarations: [
     AppComponent,
-    FileSelectDirective,
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
