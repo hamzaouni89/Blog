@@ -91,8 +91,8 @@ export class ArticleComponent implements OnInit {
     console.log(article)
     this.formArticleModifer = new FormGroup({
       titre: new FormControl(article.titre),
-      description: new FormControl(article.description)
-
+      description: new FormControl(article.description),
+      type: new FormControl(article.type)
     });
   }
 

@@ -11,7 +11,10 @@ import { ArticleComponent } from './article/article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { FileSelectDirective } from 'ng2-file-upload';
-
+import { CookieService } from 'ngx-cookie-service';
+import { UserService } from '../app/service/user.service';
+import { ArticleService } from '../app/service/article.service'
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +23,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
     RegisterComponent,
     NavbarComponent,
     FooterComponent,
-    ArticleComponent
+    ArticleComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +34,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [CookieService, UserService, ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

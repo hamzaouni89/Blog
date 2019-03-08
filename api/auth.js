@@ -1,7 +1,7 @@
 
 
 
- var jwt = require('jsonwebtoken')
+var jwt = require('jsonwebtoken')
 
 module.exports.authentification = function (req, res, next) {
     try {
@@ -10,9 +10,7 @@ module.exports.authentification = function (req, res, next) {
         if (req.userData.role == "Jornaliste") {
             next()
         }
-
     } catch (error) {
-
         res.status(401).send({
             message: "Auth failed"
         })
