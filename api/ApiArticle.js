@@ -1,7 +1,6 @@
 var express = require('express')
 var router = express.Router();
 var multer = require('multer')
-// var upload = multer({ dest: 'uploads/' })
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './uploads/');
@@ -11,25 +10,15 @@ const storage = multer.diskStorage({
     }
 
 });
-/* const fileFilter = (req, file, cb) => {
-    // reject a file
-    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
-        cb(null, true);
-    } else {
-        cb(null, false);
-    }
-}; */
+
 const upload = multer({
     storage: storage,
-
-    //  fileFilter: fileFilter
 });
 
 const Article = require('../model/articles')
-// const singleUpload = upload.single('newImage');
-// var authenticate = require('./auth').authenticate;
+
 router.post('/upload', function (req, res, next) {
-    // var imagePath = '';
+    
     upload(req, res, function (err) {
         if (err) {
             return res.status(422).send({ errors: [{ message: 'File Upload Error' }] });
@@ -42,7 +31,7 @@ router.post('/upload', function (req, res, next) {
     })
 })
 router.get('/getImage/:name', function (req, res, next) {
-    res.sendFile(('E:\\FivePoint\\MiniProjet2\\uploads\\' + req.params.name));
+    res.sendFile(('C:\\Users\\houni\\OneDrive\\Bureau\\Formation\\Niveau4\\Exercice3\\uploads\\' + req.params.name));
 })
 router.post('/addArticle', upload.single('ArticleImage'), function (req, res, next) {
     console.log(req.file);

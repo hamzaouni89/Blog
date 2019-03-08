@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
-import {  Response } from '@angular/http';
+import { Response } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map  } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+
+import jwt_decode from 'jwt-decode';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map'
@@ -10,7 +12,7 @@ import 'rxjs/add/operator/map'
     providedIn: 'root'
 })
 export class UserService {
-
+    connectedUser: any;
 
     constructor(private http: HttpClient) { }
 
@@ -22,20 +24,36 @@ export class UserService {
 
     createUser(user) {
         let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-        return this.http.post('http://localhost:3000/users/register', user , { headers: header })
-        .map(res => res);
+        return this.http.post('http://localhost:3000/users/register', user, { headers: header })
+            .map(res => res);
     }
- 
+
 
     loginUser(user) {
-        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-        return this.http.post('http://localhost:3000/users/login', user , { headers: header })
-        .map(res => res);
+       
+        return this.http.post('http://localhost:3000/users/login', user)
+            .map(res => res);
     }
 
 
     deleteUser(user) {
-        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-        return this.http.get('http://localhost:3000/users/deleteUser/' + user.id, { headers: header });
+        
+        return this.http.get('http://localhost:3000/users/deleteUser/' + user.id);
     }
+
+    getToken(): string {
+        return localStorage.getItem('token');
+    }
+    setToken(token: string): void {
+        localStorage.setItem('token', token);
+    }
+
+    getDecodedToken(token) {
+        var decoded = jwt_decode(token);
+        
+        return decoded;
+        
+    }
+
+  
 }
