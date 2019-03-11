@@ -14,10 +14,6 @@ import { Http, Response } from '@angular/http';
 export class ArticleComponent implements OnInit {
   //public uploader: FileUploader = new FileUploader({});
   selectedImage: File;
-  image: any;
-  public imagePath;
-  imgURL: any;
-
   articles;
   decoded = jwt_decode(localStorage.getItem('token'));
   formArticle: FormGroup;
@@ -81,9 +77,10 @@ export class ArticleComponent implements OnInit {
   deleteArticle(article) {
     console.log(article)
     this.articleService.deleteArticle(article).subscribe(() => {
-      return this.getArticles();
+      this.getArticles();
     })
   }
+
 
   update(article) {
 
@@ -93,19 +90,31 @@ export class ArticleComponent implements OnInit {
       contenue: new FormControl(article.contenue),
       type: new FormControl(article.type),
       ArticleImage: new FormControl(article.ArticleImage),
+      _id: new FormControl(article._id)
     });
-  }
-
-  updateArticle(article) {
-
-    article.titre = this.formArticleModifer.controls.titre.value;
-    article.contenue = this.formArticleModifer.controls.contenue.value;
-    article.type = this.formArticleModifer.controls.type.value;
-    article.ArticleImage = this.formArticleModifer.controls.ArticleImage.value;
     console.log(article)
-    return this.articleService.updateArticle(article).subscribe((res) => {
-      article = res;
 
+  }
+  UpdateImage(event) {
+    console.log(event[0])
+    this.selectedImage = event[0]
+  }
+  updateArticle(article) {
+    const formData = new FormData();
+    // article.titre = this.formArticleModifer.controls.titre.value;
+    // article.contenue = this.formArticleModifer.controls.contenue.value;
+    // article.type = this.formArticleModifer.controls.type.value;
+
+    if (this.selectedImage) {
+      article.ArticleImage = this.selectedImage.name;
+
+      formData.append('ArticleImage', this.selectedImage)
+    }
+    return this.articleService.updateArticle(article).subscribe((res) => {
+      this.articleService.uploadImage(formData).subscribe(res => console.log(res))
+      console.log(res);
+      article = res;
+      this.getArticles();
     });
   }
 }

@@ -78,12 +78,13 @@ router.get('/deletearticle/:id', authenJornaliste, function (req, res, next) {
 })
 
 router.post('/updatearticle/:id', authenJornaliste, function (req, res, next) {
+    console.log(req.body)
     var id = req.params.id
     var titre = req.body.titre
     var contenue = req.body.contenue
-    // var ArticleImage = req.file.path
+    var ArticleImage = req.body.ArticleImage
     var type = req.body.type
-    Article.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue, type: type } }).exec(function (err, article) {
+    Article.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue, type: type, ArticleImage: ArticleImage } }).exec(function (err, article) {
         if (err) {
             res.send(err)
         }
