@@ -3,6 +3,7 @@ var articleSchema = new mongoose.Schema({
   titre: String,
   contenue: String,
   ArticleImage: String,
+  date : String,
   type: {
     type: String,
     enum: ['Sport', 'News', 'Technology', 'Bisness', 'Fashion', 'Food', 'Culture'],

@@ -26,14 +26,14 @@ export class LoginComponent implements OnInit {
 
   login(user) {
 
-    return this.userService.loginUser(user).subscribe((res: any) => {
+    this.userService.loginUser(user).subscribe((res: any) => {
 
       if (res.Message === "authentification valide") {
         localStorage.setItem('token', res.token);
-
+        this.userService.connectedUser = this.userService.getDecodedToken();
         this.router.navigate(['/']);
 
-        location.reload();
+        //location.reload();
       }
       else {
         console.log("user invalide");

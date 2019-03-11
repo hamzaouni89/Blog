@@ -11,21 +11,12 @@ export class NavbarComponent implements OnInit {
   token : any ;
   userConneted : any ;
   constructor( public userService: UserService,  private router: Router) { 
-    this.token = userService.getToken()
-    if(this.token != null)
-    {
-      this.userConneted = userService.getDecodedToken(this.token);
-      console.log(this.userConneted );
-      
-    }
-    
-     
+    this.token = userService.getToken();
   }
   
   
   ngOnInit() {
-    this.token;
-    
+    this.token = this.userService.getToken()
   }
   logout() {
     localStorage.removeItem("token");
