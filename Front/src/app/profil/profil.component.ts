@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../service/article.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-profil',
@@ -11,7 +12,7 @@ export class ProfilComponent implements OnInit {
   AjoutForm: FormGroup;
   selectedImage: File;
 
-  constructor(public articleService: ArticleService, ) {
+  constructor(public articleService: ArticleService, private userService: UserService) {
     this.AjoutForm = new FormGroup({
       titre: new FormControl(),
       contenue: new FormControl(),
