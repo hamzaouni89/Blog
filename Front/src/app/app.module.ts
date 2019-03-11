@@ -10,8 +10,6 @@ import { FooterComponent } from './footer/footer.component';
 import { ArticleComponent } from './article/article.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { FileSelectDirective } from 'ng2-file-upload';
-import { CookieService } from 'ngx-cookie-service';
 import { UserService } from '../app/service/user.service';
 import { ArticleService } from '../app/service/article.service'
 import { ProfilComponent } from './profil/profil.component';
@@ -34,7 +32,7 @@ import { ProfilComponent } from './profil/profil.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [CookieService, UserService, ArticleService],
+  providers: [ UserService, ArticleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -14,7 +14,9 @@ import 'rxjs/add/operator/map'
 export class UserService {
     connectedUser: any;
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {
+        this.connectedUser = this.getDecodedToken();
+     }
 
     getUsers() {
         let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -32,7 +34,7 @@ export class UserService {
     loginUser(user) {
        
         return this.http.post('http://localhost:3000/users/login', user)
-            .map(res => res);
+            .map((res:any) => res);
     }
 
 
@@ -48,11 +50,9 @@ export class UserService {
         localStorage.setItem('token', token);
     }
 
-    getDecodedToken(token) {
-        var decoded = jwt_decode(token);
-        
+    getDecodedToken() {
+        var decoded = jwt_decode(localStorage.getItem('token'));
         return decoded;
-        
     }
 
   

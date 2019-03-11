@@ -17,8 +17,8 @@
           <a class="nav-link" routerLink="article">Articles</a>
 
         </li>
-        <li *ngIf="token" class="nav-item"><a class="nav-link" routerLink="profile"> Profile</a></li>
-        <li *ngIf="token" class="nav-item"> <a (click)="logout()" class="nav-link"> Lagout</a></li>
+        <li *ngIf="token" class="nav-item"><a class="nav-link" routerLink="profile"> {{userService.connectedUser.email}}</a></li>
+        <li *ngIf="token" class="nav-item"> <a (click)="logout()" class="nav-link"> Logout</a></li>
         <li *ngIf="!token" class="nav-item"> <a class="nav-link" routerLink="register"> Sign Up</a></li>
 
 
