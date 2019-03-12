@@ -2,6 +2,9 @@ var express = require('express')
 var bcrypt = require('bcrypt')
 var jwt = require('jsonwebtoken')
 var User = require('../model/users')
+var authentification = require('./auth').authentification;
+var authenJornaliste = require('./auth').authenJornaliste;
+
 
 var router = express.Router()
 
@@ -19,9 +22,13 @@ router.post('/register', function (req, res) {
                 bcrypt.hash(req.body.password, 10, function (err, bcryptedPassword) {
                     var newUser = new User({
                         email: req.body.email,
-                        nom: req.body.lastname,
+                        nom: req.body.nom,
                         prenom: req.body.firstname,
+                        Tel: req.body.Tel,
+                        DateNais: req.body.DateNais,
+                        prenom: req.body.prenom,
                         role: req.body.role,
+
                         password: bcryptedPassword
                     });
                     newUser.save().then(function (newUser) {
@@ -49,11 +56,19 @@ router.post('/register', function (req, res) {
         });
 })
 
-
+router.get('/getuser/:id', function (req, res, next) {
+    var id = req.params.id
+    User.findById(id).exec(function (err, user) {
+        if (err) {
+            res.send(err)
+        }
+        else {
+            res.send(user)
+        }
+    })
+})
 
 router.post('/login', function (req, res) {
-
-
     var password = req.body.password
     var email = req.body.email
     if (password == null || email == null) {
@@ -69,8 +84,11 @@ router.post('/login', function (req, res) {
                     const token = jwt.sign({
                         '_id': userfound._id,
                         'email': userfound.email,
-                        'username': userfound.username,
-                        'role': userfound.role
+                        'nom': userfound.nom,
+                        'prenom': userfound.prenom,
+                        'DateNais': userfound.DateNais,
+                        'Tel': userfound.Tel,
+                        'role': userfound.role,
                     },
                         JWT_SIGN_SECRET, {
                             expiresIn: '1h'
@@ -142,5 +160,44 @@ router.get('/addArticles/:idUser/:idArticle', function (req, res, next) {
                 res.send(user)
             }
         })
+})
+router.post('/updateUser/:id', authenJornaliste, function (req, res, next) {
+
+    var id = req.params.id
+
+
+    User.findByIdAndUpdate({ "_id": id }, { $set: { nom: req.body.nom, prenom: req.body.prenom, email: req.body.email, Tel: req.body.Tel, DateNais: req.body.DateNais } }).exec(function (err, user) {
+        if (err) {
+            res.send(err)
+
+        }
+        else {
+
+
+            User.findById(id).exec(function (err, user) {
+
+                const token = jwt.sign({
+                    email: user.email,
+                    nom: user.nom,
+                    prenom: user.prenom,
+                    DateNais: user.DateNais,
+                    Tel: user.Tel,
+                    role: user.role
+                },
+                    JWT_SIGN_SECRET, {
+                        expiresIn: '1h'
+                    });
+                res.status(200).send({
+                    Message: 'Update token ',
+                    token: token,
+                })
+
+            })
+
+
+
+            //res.send(user)
+        }
+    })
 })
 module.exports = router;

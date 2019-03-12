@@ -25,7 +25,6 @@
     <div class="tab-content no-border padding-24">
       <div id="home" class="tab-pane in active">
         <div class="row">
-
           <div class="col-xs-12 col-sm-9">
             <h4 class="blue">
               <span class="middle"></span>
@@ -38,44 +37,45 @@
 
             <div class="profile-user-info">
               <div class="profile-info-row">
-                <div class="profile-info-name"> Username </div>
+                <div class="profile-info-name"> Nom </div>
 
                 <div class="profile-info-value">
-                  <span>alexdoe</span>
+                  <span> {{userService.connectedUser.nom}}</span>
+                </div>
+              </div>
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Prenom </div>
+
+                <div class="profile-info-value">
+                  <span> {{userService.connectedUser.prenom}}</span>
+                </div>
+              </div>
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Email </div>
+
+                <div class="profile-info-value">
+                  <span> {{userService.connectedUser.email}}</span>
+                </div>
+              </div>
+              <div class="profile-info-row">
+                <div class="profile-info-name"> Tel </div>
+                <div class="profile-info-value">
+                  <span> {{userService.connectedUser.Tel}}</span>
+
                 </div>
               </div>
 
               <div class="profile-info-row">
-                <div class="profile-info-name"> Location </div>
-
+                <div class="profile-info-name"> Date Naiss </div>
                 <div class="profile-info-value">
-                  <i class="fa fa-map-marker light-orange bigger-110"></i>
-                  <span>Netherlands</span>
-                  <span>Amsterdam</span>
+                  <span> {{userService.connectedUser.DateNais}}</span>
                 </div>
               </div>
-
               <div class="profile-info-row">
-                <div class="profile-info-name"> Age </div>
+                <div class="profile-info-name"> Role </div>
 
                 <div class="profile-info-value">
-                  <span>38</span>
-                </div>
-              </div>
-
-              <div class="profile-info-row">
-                <div class="profile-info-name"> Joined </div>
-
-                <div class="profile-info-value">
-                  <span>2010/06/20</span>
-                </div>
-              </div>
-
-              <div class="profile-info-row">
-                <div class="profile-info-name"> Last Online </div>
-
-                <div class="profile-info-value">
-                  <span>3 hours ago</span>
+                  <span> {{userService.connectedUser.role}}</span>
                 </div>
               </div>
             </div>
@@ -85,36 +85,68 @@
         </div><!-- /.row -->
 
         <div class="space-20"></div>
+        <div>
+          <a class="btn btn-info" data-toggle="modal" data-target="#user" (click)="update(User)">Modifier</a>
 
-        <div class="row">
-          <div class="col-xs-12 col-sm-6">
-            <div class="widget-box transparent">
-              <div class="widget-header widget-header-small">
-                <h4 class="widget-title smaller">
-                  <i class="ace-icon fa fa-check-square-o bigger-110"></i>
-                  Little About Me
-                </h4>
-              </div>
+          <div class="modal fade" id="user" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLongTitle">Modifier User<Article></Article>
+                  </h5>
 
-              <div class="widget-body">
-                <div class="widget-main">
-                  <p>
-                    My job is mostly lorem ipsuming and dolor sit ameting as long as consectetur adipiscing elit.
-                  </p>
-                  <p>
-                    Sometimes quisque commodo massa gets in the way and sed ipsum porttitor facilisis.
-                  </p>
-                  <p>
-                    The best thing about my job is that vestibulum id ligula porta felis euismod and nullam quis risus
-                    eget urna mollis ornare.
-                  </p>
-                  <p>
-                    Thanks for visiting my profile.
-                  </p>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="form-horizontal" role="form" [formGroup]="EditUser">
+                    <!-- Text input-->
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="textinput">Nom</label>
+                      <div class="col-sm-10">
+                        <input type="text" formControlName="nom" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="textinput">Prenom</label>
+                      <div class="col-sm-10">
+                        <input type="text" formControlName="prenom" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="textinput">Email</label>
+                      <div class="col-sm-10">
+                        <input type="text" formControlName="email" placeholder="" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="textinput">Tel</label>
+                      <div class="col-sm-10">
+                        <input type="text" formControlName="Tel" placeholder=" " class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-sm-3 control-label" for="textinput">DateNAiss</label>
+                      <div class="col-sm-10">
+                        <input type="text" formControlName="DateNais" placeholder="" class="form-control">
+                      </div>
+                    </div>
+
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <div class="pull-right">
+                    <button type="submit" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger " (click)="UpdateUser(EditUser.value)"
+                      data-dismiss="modal">Modifier</button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </div><!-- /#home -->
 

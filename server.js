@@ -1,6 +1,5 @@
 
 var express = require('express')
-var passport = require('passport');
 var app = express()
 var db = require('./database/db')
 var users = require('./api/ApiUser')
@@ -18,6 +17,6 @@ app.use('/article', article)
 //app.use('/commentaire', commentaire)
 
 app.listen(3000, (err => {
-if (err) throw err;
-console.log('server is running on port 3000')
+    if (err) throw err;
+    console.log('server is running on port 3000')
 }))

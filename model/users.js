@@ -22,7 +22,8 @@ var userSchema = new mongoose.Schema({
     enum: ['Client', 'journalist'],
     default: 'Client'
   },
-
+  DateNais: String,
+  Tel: String,
   password: { type: String, Required: true, minlength: 8 },
 })
 module.exports = mongoose.model('User', userSchema)

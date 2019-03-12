@@ -7,6 +7,7 @@ import jwt_decode from 'jwt-decode';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map'
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +17,7 @@ export class UserService {
 
     constructor(private http: HttpClient) {
         this.connectedUser = this.getDecodedToken();
-     }
+    }
 
     getUsers() {
         let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
@@ -32,14 +33,14 @@ export class UserService {
 
 
     loginUser(user) {
-       
+
         return this.http.post('http://localhost:3000/users/login', user)
-            .map((res:any) => res);
+            .map((res: any) => res);
     }
 
 
     deleteUser(user) {
-        
+
         return this.http.get('http://localhost:3000/users/deleteUser/' + user.id);
     }
 
@@ -51,9 +52,21 @@ export class UserService {
     }
 
     getDecodedToken() {
-        var decoded = jwt_decode(localStorage.getItem('token'));
-        return decoded;
+        if (localStorage.getItem('token')) {
+
+            var decoded = jwt_decode(localStorage.getItem('token'));
+            return decoded;
+        }
+
     }
 
-  
+    getUser(ID) {
+        return this.http.get('http://localhost:3000/users/getuser/ ' + ID);
+    }
+
+    UpdateUser(user) {
+        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.post('http://localhost:3000/users/updateUser/' + user._id, user, { headers: header })
+            .map(res => res);
+    }
 }

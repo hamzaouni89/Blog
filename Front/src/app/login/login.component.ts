@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         this.userService.connectedUser = this.userService.getDecodedToken();
         this.router.navigate(['/']);
 
-        //location.reload();
+        location.reload();
       }
       else {
         console.log("user invalide");
