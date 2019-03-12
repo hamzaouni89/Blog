@@ -45,6 +45,7 @@ export class UserService {
     }
 
     getToken(): string {
+
         return localStorage.getItem('token');
     }
     setToken(token: string): void {

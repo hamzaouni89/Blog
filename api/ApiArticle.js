@@ -26,6 +26,7 @@ router.get('/getImage/:name', function (req, res, next) {
 router.post('/addArticle', authenJornaliste, function (req, res, next) {
     console.log(req.body);
     var article = new Article({
+        date: new Date(),
         titre: req.body.titre,
         contenue: req.body.contenue,
         ArticleImage: req.body.ArticleImage,
@@ -84,7 +85,7 @@ router.post('/updatearticle/:id', authenJornaliste, function (req, res, next) {
     var contenue = req.body.contenue
     var ArticleImage = req.body.ArticleImage
     var type = req.body.type
-    Article.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue, type: type, ArticleImage: ArticleImage } }).exec(function (err, article) {
+    Article.findByIdAndUpdate({ "_id": id }, { $set: { titre: titre, contenue: contenue, type: type, ArticleImage: ArticleImage, date: new Date(), } }).exec(function (err, article) {
         if (err) {
             res.send(err)
         }

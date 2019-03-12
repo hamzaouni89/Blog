@@ -26,6 +26,7 @@ export class ArticleComponent implements OnInit {
       type: new FormControl(),
       ArticleImage: new FormControl(),
       owner: new FormControl(),
+      date: new FormControl()
     });
     this.formArticleModifer = new FormGroup({
       titre: new FormControl(),
@@ -33,10 +34,10 @@ export class ArticleComponent implements OnInit {
       type: new FormControl(),
       ArticleImage: new FormControl(),
       owner: new FormControl(),
+      date: new FormControl()
     });
 
   }
-
   ngOnInit() {
     this.getArticles();
 
@@ -91,9 +92,6 @@ export class ArticleComponent implements OnInit {
   }
   updateArticle(article) {
     const formData = new FormData();
-    // article.titre = this.formArticleModifer.controls.titre.value;
-    // article.contenue = this.formArticleModifer.controls.contenue.value;
-    // article.type = this.formArticleModifer.controls.type.value;
 
     if (this.selectedImage) {
       article.ArticleImage = this.selectedImage.name;

@@ -81,6 +81,9 @@ export class ProfilComponent implements OnInit {
 
       this.userService.getUser(this.userService.connectedUser._id);
       user = res;
+      localStorage.removeItem("token");
+      localStorage.setItem('token', user.token);
+      this.userService.connectedUser = this.userService.getDecodedToken();
 
 
     });
