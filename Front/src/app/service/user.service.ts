@@ -44,6 +44,7 @@ export class UserService {
     }
 
     getToken(): string {
+   
         return localStorage.getItem('token');
     }
     setToken(token: string): void {
@@ -51,8 +52,12 @@ export class UserService {
     }
 
     getDecodedToken() {
+        if(localStorage.getItem('token')){
+
         var decoded = jwt_decode(localStorage.getItem('token'));
+        
         return decoded;
+        }
     }
 
   
