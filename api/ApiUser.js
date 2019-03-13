@@ -23,12 +23,10 @@ router.post('/register', function (req, res) {
                     var newUser = new User({
                         email: req.body.email,
                         nom: req.body.nom,
-                        prenom: req.body.firstname,
                         Tel: req.body.Tel,
                         DateNais: req.body.DateNais,
                         prenom: req.body.prenom,
                         role: req.body.role,
-
                         password: bcryptedPassword
                     });
                     newUser.save().then(function (newUser) {

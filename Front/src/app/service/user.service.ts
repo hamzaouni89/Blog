@@ -26,8 +26,8 @@ export class UserService {
     }
 
     createUser(user) {
-        let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-        return this.http.post('http://localhost:3000/users/register', user, { headers: header })
+        // let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.post('http://localhost:3000/users/register', user)
             .map(res => res);
     }
 

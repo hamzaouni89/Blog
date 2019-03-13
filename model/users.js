@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
     enum: ['Client', 'journalist'],
     default: 'Client'
   },
-  DateNais: String,
+  DateNais: Date,
   Tel: String,
   password: { type: String, Required: true, minlength: 8 },
 })

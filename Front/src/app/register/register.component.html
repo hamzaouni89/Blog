@@ -6,13 +6,15 @@
       <form [formGroup]="registerForm">
         <div class="form-group">
           <label for="firstname">Firstname</label>
-          <input type="text" formControlName="firstname" class="form-control" />
-          <div *ngIf="registerForm?.controls['firstname']?.hasError('required')" style="color: red"> Required firstname</div>
+          <input type="text" formControlName="nom" class="form-control" />
+          <div *ngIf="registerForm?.controls['nom']?.hasError('required')" style="color: red"> Required firstname
+          </div>
         </div>
         <div class="form-group">
           <label for="lastname">Lastname</label>
-          <input type="text" formControlName="lastname" class="form-control" />
-          <div *ngIf="registerForm?.controls['lastname']?.hasError('required')" style="color: red">Required lastname</div>
+          <input type="text" formControlName="prenom" class="form-control" />
+          <div *ngIf="registerForm?.controls['prenom']?.hasError('required')" style="color: red">Required lastname
+          </div>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
@@ -28,21 +30,38 @@
           </select>
         </div>
         <div class="form-group">
+          <label for="tel">Tel</label>
+          <input type="number" formControlName="Tel" class="form-control" />
+          <div *ngIf="registerForm?.controls['tel']?.hasError('required')" style="color: red">Required tel</div>
+        </div>
+        <div class="form-group">
+          <label for="date">Date de naissance</label>
+          <input type="date" formControlName="DateNais" class="form-control" />
+          <div *ngIf="registerForm?.controls['date']?.hasError('required')" style="color: red">Required date</div>
+        </div>
+        <div class="form-group">
           <label for="password">Password</label>
           <input type="password" formControlName="password" class="form-control" />
-          <div *ngIf="registerForm?.controls['password']?.hasError('required')" style="color: red">Required password</div>
-          <div *ngIf="registerForm?.controls['password']?.hasError('minlength')" style="color: red">Password is required (minimum 8 characters)</div>
+          <div *ngIf="registerForm?.controls['password']?.hasError('required')" style="color: red">Required password
+          </div>
+          <div *ngIf="registerForm?.controls['password']?.hasError('minlength')" style="color: red">Password is required
+            (minimum 8 characters)</div>
         </div>
         <div class="form-group">
           <label for="password2">Confirm Password</label>
-          <input type="password"  validateEqual="password" formControlName="password2" class="form-control" />
-          <div *ngIf="registerForm?.controls['password2']?.hasError('required')" style="color: red">Required Confirm  password</div>
-          <div *ngIf="registerForm.value.password !== registerForm.value.password2" style="color: red">Not the same</div>
+          <input type="password" validateEqual="password" formControlName="password2" class="form-control" />
+          <div *ngIf="registerForm?.controls['password2']?.hasError('required')" style="color: red">Required Confirm
+            password</div>
+          <div *ngIf="registerForm.value.password !== registerForm.value.password2" style="color: red">Not the same
+          </div>
         </div>
+
         <div class="form-group">
 
-          <button type="submit"[disabled]="!registerForm.valid"  (click)="createUser()" class="btn btn-success">Register</button>
-          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <button type="submit" [disabled]="!registerForm.valid" (click)="createUser()"
+            class="btn btn-success">Register</button>
+          <img *ngIf="loading"
+            src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
           <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
         </div>
       </form>
