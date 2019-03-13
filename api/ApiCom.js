@@ -4,9 +4,13 @@ var Commentaire = require('../model/commentaire')
 var authenJornaliste = require('./auth').authenJornaliste;
 var authenClient = require('./auth').authenClient;
 var authentification = require('./auth').authentification;
-router.post('/addCom', authenClient, function (req, res, next) {
+
+
+router.post('/addCom', authentification, function (req, res, next) {
+    console.log(req.body);
     
     var commentaire = new Commentaire({
+        
         date : new Date(),
         contenue: req.body.contenue,
         article: req.body.article,
@@ -23,7 +27,7 @@ router.post('/addCom', authenClient, function (req, res, next) {
     })
 })
 router.get('/getCom',authentification, function (req, res, next) {
-    Commentaire.find().populate('Nom').exec(function (err, commentaires) {
+    Commentaire.find().populate('Nom' ).populate('article').exec(function (err, commentaires) {
         if (err) {
             res.send(err)
         }
@@ -35,7 +39,7 @@ router.get('/getCom',authentification, function (req, res, next) {
 
 router.get('/getCom/:id', function (req, res, next) {
     var id = req.params.id
-    Commentaire.findById(id).exec(function (err, commentaire) {
+    Commentaire.findById(id).populate('Nom' ).populate('article').exec(function (err, commentaire) {
         if (err) {
             res.send(err)
         }
@@ -45,7 +49,7 @@ router.get('/getCom/:id', function (req, res, next) {
     })
 })
 
-router.get('/deleteCom/:id', authenJornaliste, function (req, res, next) {
+router.get('/deleteCom/:id', authentification, function (req, res, next) {
     var id = req.params.id
 
     Commentaire.findByIdAndRemove(id).exec(function (err, commentaire) {
@@ -57,6 +61,8 @@ router.get('/deleteCom/:id', authenJornaliste, function (req, res, next) {
         }
     })
 })
+
+
 
 /* router.post('/updateCom/:id', function (req, res, next) {
        

@@ -8,7 +8,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ArticleService {
-  constructor(private http: HttpClient) { }
+
+  article: any;
+  constructor(private http: HttpClient) {
+    this.article= this.getArticles()
+   }
   getImage(NomImage) {
     let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
     return this.http.get('http://localhost:3000/article/getImage/' + NomImage, { headers: header })

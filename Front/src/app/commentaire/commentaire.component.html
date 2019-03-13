@@ -13,6 +13,7 @@
 
   <!-- Single Comment -->
   <div *ngFor="let com of commentaires">
+   <div *ngIf="com.article._id===idArticle">
     <div class="row">
     <div class="col-md-11">
     <div class="media mb-4">
@@ -23,6 +24,7 @@
        <p class="text">{{com.date}} </p> 
       </div>
     </div>
+  </div>
   </div>
   <div class="col-md-1" *ngIf="userService.connectedUser.role === 'Jornaliste'">
       <button type="button" (click)="deleteCommentaire(com)" class="btn btn-danger"><span aria-hidden="true">&times;</span></button>

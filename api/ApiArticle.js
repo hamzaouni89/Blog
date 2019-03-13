@@ -21,7 +21,7 @@ const Article = require('../model/articles')
 router.post('/upload', upload.single("ArticleImage"), function (req, res, next) {
 })
 router.get('/getImage/:name', function (req, res, next) {
-    res.sendFile('E:\\FivePoint\\MiniProjet2\\uploads\\' + req.params.name);
+    res.sendFile('C:/Users/houni/OneDrive/Bureau/Formation/Niveau4/Exercice3/uploads\\' + req.params.name);
 })
 router.post('/addArticle', authenJornaliste, function (req, res, next) {
     console.log(req.body);

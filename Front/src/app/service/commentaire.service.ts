@@ -17,9 +17,9 @@ export class CommentaireService {
     return this.http.get('http://localhost:3000/commentaire/getCom', { headers: header })
       .map(res => res);
   }
-  getCommentairesById(IdUser) {
+  getCommentairesById(owner) {
     let header = new HttpHeaders().append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-    return this.http.get('http://localhost:3000/commentaire/getCom' + IdUser, { headers: header })
+    return this.http.get('http://localhost:3000/commentaire/getCom' + owner, { headers: header })
       .map(res => res);
   }
 
