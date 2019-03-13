@@ -15,6 +15,9 @@ export class ProfilComponent implements OnInit {
   token: string;
   ID: any;
   EditUser: FormGroup;
+  owner: any;
+  articles: any;
+
 
   constructor(public articleService: ArticleService, private userService: UserService) {
     this.AjoutForm = new FormGroup({
@@ -22,6 +25,8 @@ export class ProfilComponent implements OnInit {
       contenue: new FormControl(),
       type: new FormControl(),
       ArticleImage: new FormControl(),
+      owner: new FormControl(),
+
     });
     this.EditUser = new FormGroup({
       nom: new FormControl(),
@@ -29,12 +34,18 @@ export class ProfilComponent implements OnInit {
       email: new FormControl(),
       Tel: new FormControl(),
       DateNais: new FormControl(),
+      owner: new FormControl(),
+
 
     });
   }
 
   ngOnInit() {
     this.token = this.userService.getToken();
+
+    this.getArticles();
+    //console.log(this.userService.connectedUser._id);
+
     // this.userService.getUser(this.ID).subscribe(async (user: any) => {
     //   this.users = [user];
     // });
@@ -42,14 +53,31 @@ export class ProfilComponent implements OnInit {
   handleFileInput(files: FileList) {
     this.selectedImage = files.item(0);
   }
+
+  getArticles() {
+
+    this.articleService.getArticles().subscribe((res) => {
+      console.log(res)
+      // this.formArticle.value.owner = this.userService.connectedUser._id;
+      this.articles = res;
+      console.log(this.userService.connectedUser._id);
+      // console.log(this.article);
+
+
+    })
+  }
   createArticle() {
     console.log(this.selectedImage)
     this.AjoutForm.value.ArticleImage = this.selectedImage.name;
+    this.AjoutForm.value.owner = this.userService.connectedUser._id;
+    console.log(this.AjoutForm.value);
     this.articleService.createArticle(this.AjoutForm.value).subscribe((res) => {
       const file = new FormData()
       file.append("ArticleImage", this.selectedImage);
       this.articleService.uploadImage(file).subscribe(res => console.log(res))
       console.log(res);
+      location.reload();
+
 
     });
   }

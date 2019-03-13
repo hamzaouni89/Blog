@@ -30,7 +30,11 @@ router.post('/addArticle', authenJornaliste, function (req, res, next) {
         titre: req.body.titre,
         contenue: req.body.contenue,
         ArticleImage: req.body.ArticleImage,
-        type: req.body.type
+        type: req.body.type,
+        owner: req.body.owner
+
+
+
     });
     console.log(req.body)
     article.save(function (err, article) {
@@ -41,8 +45,8 @@ router.post('/addArticle', authenJornaliste, function (req, res, next) {
         }
     })
 })
-router.get('/getArticle', function (req, res, next) {
-    Article.find(function (err, articles) {
+router.get('/getArticle', authenJornaliste, function (req, res, next) {
+    Article.find().populate('owner').exec(function (err, articles) {
         if (err) {
             res.send(err)
         }
