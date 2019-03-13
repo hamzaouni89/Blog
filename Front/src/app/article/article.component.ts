@@ -12,7 +12,7 @@ import { UserService } from '../service/user.service';
   styleUrls: ['./article.component.css']
 })
 export class ArticleComponent implements OnInit {
- 
+
   selectedImage: File;
   articles;
   formArticle: FormGroup;
