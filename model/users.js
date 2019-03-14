@@ -19,7 +19,7 @@ var userSchema = new mongoose.Schema({
   // 1 client 2 journalist
   role: {
     type: String,
-    enum: ['Client', 'journalist'],
+    enum: ['Client', 'Jornaliste'],
     default: 'Client'
   },
   DateNais: Date,
