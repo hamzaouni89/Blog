@@ -44,6 +44,8 @@ export class ProfilComponent implements OnInit {
     this.token = this.userService.getToken();
 
     this.getArticles();
+    this.userService.connectedUser = this.userService.getDecodedToken();
+
     //console.log(this.userService.connectedUser._id);
 
     // this.userService.getUser(this.ID).subscribe(async (user: any) => {
@@ -55,6 +57,7 @@ export class ProfilComponent implements OnInit {
   }
 
   getArticles() {
+    this.userService.connectedUser = this.userService.getDecodedToken();
 
     this.articleService.getArticles().subscribe((res) => {
       console.log(res)
