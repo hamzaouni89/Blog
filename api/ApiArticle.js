@@ -32,9 +32,6 @@ router.post('/addArticle', authenJornaliste, function (req, res, next) {
         ArticleImage: req.body.ArticleImage,
         type: req.body.type,
         owner: req.body.owner
-
-
-
     });
     console.log(req.body)
     article.save(function (err, article) {

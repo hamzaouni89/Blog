@@ -175,6 +175,7 @@ router.post('/updateUser/:id', authenJornaliste, function (req, res, next) {
             User.findById(id).exec(function (err, user) {
 
                 const token = jwt.sign({
+                    _id : user._id,
                     email: user.email,
                     nom: user.nom,
                     prenom: user.prenom,

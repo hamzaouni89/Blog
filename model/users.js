@@ -25,5 +25,6 @@ var userSchema = new mongoose.Schema({
   DateNais: Date,
   Tel: String,
   password: { type: String, Required: true, minlength: 8 },
+  
 })
 module.exports = mongoose.model('User', userSchema)
