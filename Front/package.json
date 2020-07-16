@@ -22,7 +22,7 @@
     "@angular/router": "^7.2.15",
     "angular2-jwt": "^0.2.3",
     "core-js": "^2.6.10",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "ng2-file-upload": "^1.4.0",
     "ngx-cookie-service": "^2.1.0",
     "rxjs": "^6.5.3",
