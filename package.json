@@ -33,6 +33,6 @@
     "router-express": "^1.5.2",
     "set-value": "^2.0.1",
     "tar": "^2.2.2",
-    "validator": "^10.11.0"
+    "validator": "^13.7.0"
   }
 }
